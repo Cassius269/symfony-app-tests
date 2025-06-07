@@ -5,33 +5,40 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    // Injection de dépendances
+    // Injection de la dépendance de hashage de mot de passe d'un utilisateur 
     public function __construct(private UserPasswordHasherInterface $passwordHasher) {}
 
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        // Déclarer un objet User et remplir les informations personnelles
-        $user = new User;
-        $user->setFirstname('Jean')
-            ->setLastname('DUPONT')
-            ->setEmail('jean-dupont@exemple.com');
+        // Instancier Faker
+        $faker = Factory::create('fr_FR'); // Régionnalisation de Faker en français
 
-        // Hasher le mot de passe
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            '1234'
-        );
-        $user->setPassword($hashedPassword);
+        // Génération de 10 utilisateurs avec des données factices
+        for ($i = 0; $i < 10; $i++) {
+            // Déclarer un objet User et remplir les informations personnelles
+            $user = new User;
+            $user->setFirstname($faker->firstName())
+                ->setLastname($faker->lastName())
+                ->setEmail($faker->email());
+
+            // Hasher le mot de passe
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $faker->password(8, 12)
+            );
+            $user->setPassword($hashedPassword);
 
 
-        // Enregistrer l'User dans la base de données
-        $manager->persist($user); // construire la requête
-        $manager->flush(); // executer la requête d'envoi en base de données
+            // Prevenir Doctrine de l'enregistrement de chaque utilisateur
+            $manager->persist($user);
+        }
+
+        // executer la requête d'envoi de tous les utilisateurs en base de données
+        $manager->flush();
     }
 }
