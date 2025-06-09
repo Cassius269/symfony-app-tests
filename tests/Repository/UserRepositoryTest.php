@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 // Tester le nombre d'utilisateurs présent en base de données
 class UserRepositoryTest extends KernelTestCase
 {
+    // Utiliser le trait de LiipBundle
+    use FixturesTrait;
+
     public function testCount()
     {
         // Démarrer le kernel
