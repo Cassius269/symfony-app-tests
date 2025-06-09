@@ -1,0 +1,4 @@
+# Mise en cache des résultats de requête en environnement de test
+liip_test_fixtures:
+  cache_db:
+    sqlite: 'Liip\TestFixturesBundle\Services\DatabaseBackup\SqliteDatabaseBackup'
