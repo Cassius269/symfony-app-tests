@@ -1,1 +1,12 @@
+# Importation des fixtures des utilisateurs (comprenant aussi les auteurs)
+include:
+  - UserTestFixtures.yaml
+
+# Générer les données fictives des livres
 App\Entity\Book:
+  #Créer une série de 20 livres fictifs
+  book{1..20}:
+    title: "titre-<current()>"
+    description: <sentence(3)>
+    # Référence directe aux 10 auteurs existants
+    author: <numberBetween(1,10)>x @author* # attribuer une reference d'auteur aléatoire existante à chaque livre généré

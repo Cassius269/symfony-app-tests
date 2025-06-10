@@ -2,13 +2,12 @@
 
 namespace App\Tests\Repository;
 
-use App\Repository\AuthorRepository;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 
-
-// Tester le nombre d'auteurs présents en base de données
-class AuthorRepositoryTest extends KernelTestCase
+// Tester le nombre de livres présents en base de données
+class BookRepositoryTest extends KernelTestCase
 {
     // Création d'une variable qui va stocker l'outil de gestion de base de données de test
     private $databaseTool;
@@ -24,15 +23,15 @@ class AuthorRepositoryTest extends KernelTestCase
 
     public function testRepositoryCount(): void
     {
-        // On charge les utilisateurs en base de données
+        // On charge les données de test des livres en base de données
         $this->databaseTool->loadAliceFixture([
-            \dirname(__DIR__) . '/Fixtures/UserTestFixtures.yaml'
+            \dirname(__DIR__) . '/Fixtures/BookTestFixtures.yaml'
         ]);
 
-        // On compte le nombre d'auteurs depuis le container
-        $authors = self::getContainer()->get(AuthorRepository::class)->count([]);
+        // On compte le nombre de livres depuis le container
+        $books =  self::getContainer()->get(BookRepository::class)->count([]);
 
-        // Verifier le nombre d'utilisateurs enregistrés de façon factice avec ceux trouvés
-        $this->assertSame(10, $authors, 'Le nombre d\'auteurs ne correspond pas');
+        // Verifier le nombre de livres enregistrés en base de données
+        $this->assertSame(20, $books);
     }
 }

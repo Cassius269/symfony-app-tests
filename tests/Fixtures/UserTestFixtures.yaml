@@ -22,7 +22,7 @@ App\Entity\Author:
   # Créer un ensemble de 10 auteurs de façon aléatoire
   author{1..10}:
     email (unique): author<current()>\@domain.fr
-    password: <hashPAssword('1234')>
+    password: <hashPassword('1234')>
     firstname: <firstname()>
     lastname: <lastname()>
     roles: ["ROLE_AUTHOR"]
