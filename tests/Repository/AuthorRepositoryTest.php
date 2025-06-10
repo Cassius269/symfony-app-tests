@@ -2,7 +2,6 @@
 
 namespace App\Tests\Repository;
 
-use App\Repository\AdminRepository;
 use App\Repository\AuthorRepository;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -27,15 +26,15 @@ class AuthorRepositoryTest extends KernelTestCase
     public function testRepositoryCount(): void
     {
         // On charge les utilisateurs en base de données
-        $users = $this->databaseTool->loadAliceFixture([
+        $this->databaseTool->loadAliceFixture([
             \dirname(__DIR__) . '/Fixtures/UserTestFixtures.yaml'
         ]);
 
 
         // On compte le nombre d'auteurs depuis le container
-        $admins = self::getContainer()->get(AdminRepository::class)->count([]);
+        $authors = self::getContainer()->get(AuthorRepository::class)->count([]);
 
         // Verifier le nombre d'utilisateurs enregistrés de façon factice avec ceux trouvés
-        $this->assertSame(1, $admins, 'Le nombre d\'auteurs ne correspond pas');
+        $this->assertSame(10, $authors, 'Le nombre d\'auteurs ne correspond pas');
     }
 }

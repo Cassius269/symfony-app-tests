@@ -2,8 +2,7 @@
 # Créer un Admin avec un alias
 App\Entity\Admin:
   userAdmin:
-    email: jean@test.com
-    # password: "1233"
+    email: "jean-dupont@test.com"
     password: <hashPassword('1234')>
     firstname: "Jean"
     lastname: "DUPONT"
