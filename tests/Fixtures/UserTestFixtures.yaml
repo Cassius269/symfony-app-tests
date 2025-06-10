@@ -1,0 +1,29 @@
+# Générer les fixtures génériques avec AliceBundle intégrant par défaut Faker pour les entités User, Author, et Admin
+# Créer un Admin avec un alias
+App\Entity\Admin:
+  userAdmin:
+    email: jean@test.com
+    # password: "1233"
+    password: <hashPassword('1234')>
+    firstname: "Jean"
+    lastname: "DUPONT"
+    roles: ["ROLE_ADMIN"]
+
+  # Créer un ensemble d'utilisateurs ayant un rôle d'auteur
+App\Entity\User:
+  user{1..12}:
+    email (unique): user<current()>\@domain.fr
+    password: <hashPassword('1234')>
+    firstname: <firstname()>
+    lastname: <lastname()>
+    roles: ["ROLE_USER"]
+
+# Générer les fixtures d'auteurs
+App\Entity\Author:
+  # Créer un ensemble de 10 auteurs de façon aléatoire
+  author{1..10}:
+    email (unique): author<current()>\@domain.fr
+    password: <hashPAssword('1234')>
+    firstname: <firstname()>
+    lastname: <lastname()>
+    roles: ["ROLE_AUTHOR"]

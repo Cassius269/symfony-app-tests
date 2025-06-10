@@ -2,13 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
+use App\Entity\Author;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class AuthorFixtures extends Fixture
 {
     // Injection de la dépendance de hashage de mot de passe d'un utilisateur 
     public function __construct(private UserPasswordHasherInterface $passwordHasher) {}
@@ -20,22 +20,22 @@ class UserFixtures extends Fixture
 
         // Génération de 10 utilisateurs avec des données factices
         for ($i = 0; $i < 10; $i++) {
-            // Déclarer un objet User et remplir les informations personnelles
-            $user = new User;
-            $user->setFirstname($faker->firstName())
+            // Déclarer un objet author et remplir les informations personnelles
+            $author = new Author;
+            $author->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName())
                 ->setEmail($faker->email());
 
             // Hasher le mot de passe
             $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,
+                $author,
                 $faker->password(8, 12)
             );
-            $user->setPassword($hashedPassword);
+            $author->setPassword($hashedPassword);
 
 
             // Prevenir Doctrine de l'enregistrement de chaque utilisateur
-            $manager->persist($user);
+            $manager->persist($author);
         }
 
         // executer la requête d'envoi de tous les utilisateurs en base de données
