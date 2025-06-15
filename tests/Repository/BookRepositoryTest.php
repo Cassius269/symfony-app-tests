@@ -32,6 +32,6 @@ class BookRepositoryTest extends KernelTestCase
         $books =  self::getContainer()->get(BookRepository::class)->count([]);
 
         // Verifier le nombre de livres enregistrés en base de données
-        $this->assertSame(20, $books);
+        $this->assertSame(20, $books, 'Le nombre de livres n\'est pas correct');
     }
 }
